@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            color: #333; 
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        
+
+        h1 {
+            color: #000000;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        h1 img {
+            margin-right: 10px;
+
+        }
+
+        h1, h2 {
+            color: #000000;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-bottom: 8px;
+            color: #333; 
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            margin: 0 10px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 70vh;
+            overflow-y: auto;
+            color: #333; 
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+            <img src="https://www.shutterstock.com/image-vector/logo-template-wheat-hand-sun-600nw-1944446713.jpg" alt="Crop Prediction Logo" width="50" height="50">
+            Crop Predictor
+        </h1>
+    </header>
+    <form action="/" method="post">
+        <label for="N">N(Nitrogen):</label>
+        <input type="text" name="N" required><br>
+
+        <label for="P">P(Phosphorous):</label>
+        <input type="text" name="P" required><br>
+
+        <label for="K">K(Potassium):</label>
+        <input type="text" name="K" required><br>
+
+        <label for="temp">Temperature:</label>
+        <input type="text" name="temp" required><br>
+
+        <label for="ph">pH:</label>
+        <input type="text" name="ph" required><br>
+
+        <button type="submit">Search</button>
+    </form>
+
+    {% if result is not none %}
+        <h2><b>Result:</b></h2>
+    <h3><h2><p><b>Suggested Crop:</b> {{ result }}</p>  </h2>
+        <b> <p><b>N:</b> {{ input_data[0] }}</p>
+        <p><b>P:</b> {{ input_data[1] }}</p>
+        <p><b>K:</b> {{ input_data[2] }}</p>
+        <p><b>Temp:</b> {{ input_data[3] }}</p>
+        <p><b>pH:</b> {{ input_data[4] }}</p>
+        </b></h3>
+    {% endif %}
+
+
+    <div class="button-container">
+        <button onclick="openPopup()">About Us</button>
+        <button onclick="openContactPopup()">Contact</button>
+        <button onclick="openReviewPopup()">Review</button>
+    </div>
+
+    <div id="aboutUsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">×</span>
+            <div class="container">
+                <h1>About Us</h1>
+                <p>Welcome to Crop Predictor! </p>
+                <p>At Crop Predictor, we are dedicated to revolutionizing the way farmers plan and manage their crops. Our mission is to empower farmers with accurate and timely predictions, helping them make informed decisions and optimize their agricultural practices for better yields and sustainability.</p>
+                <p><b> Vision:</b></p>
+
+                    <p>To be a leading platform in agricultural innovation, leveraging cutting-edge technology to enhance global food security and promote sustainable farming practices.</p>
+
+                <p><b>What We Offer:</b></p>
+                <p><b>*Accurate Crop Predictions: </b>We use advanced data analytics, machine learning, and meteorological data to provide precise crop predictions tailored to your region.</p>
+                <p><b>*User-Friendly Interface: </b>Our website is designed with farmers in mind. We strive to make our predictions accessible and easy to understand, ensuring that farmers of all backgrounds can benefit from our platform.</p>
+                <p><b>*Real-time Updates: </b>Stay ahead of the curve with real-time updates on weather patterns, market trends, and other factors influencing crop growth and harvest.</p>
+                <p><b>Meet the Team:</b></p>
+                <p>Our team is comprised of passionate individuals with diverse backgrounds in agriculture, data science, and technology. We share a common goal of making a positive impact on global agriculture and food production.</p>
+                <p>[Founder/CEO Name]: [Brief bio and background]</p>
+
+                  <p>  [Lead Data Scientist/Expert]: [Brief bio and background]</p>
+                    
+                 <p>  [Agricultural Specialist]: [Brief bio and background]</p>
+
+                 <p><b>Join Us on Our Journey:</b></p>
+                 <p></p>
+                 <p>We believe in the power of collaboration. Whether you're a farmer, researcher, or technology enthusiast, we invite you to join us on this exciting journey towards a more sustainable and productive agricultural future.</p>
+                 <p>For inquiries, collaborations, or feedback, please reach out to customercare_croppredictor@email.com.</p>
+                 <p>Thank you for choosing Crop Predictor!</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeContactPopup()">×</span>
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>For any inquiries or assistance, feel free to contact us:</p>
+                <p>Email: customercare_croppredictor@email.com</p>
+                <p>Phone: +917777777777</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="reviewPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeReviewPopup()">×</span>
+            <div class="container">
+                <h2>Write a Review</h2>
+                <form id="reviewForm">
+                    <label for="reviewText">Your Review:</label>
+                    <textarea id="reviewText" name="reviewText" rows="14" required></textarea>
+    
+                    <div class="button-container">
+                        <button type="button" onclick="submitReview()">Submit</button>
+                    </div>
+                </form>
+    
+                <div id="thankYouMessage" style="display:none;">
+                    <h2>Thank You for Your Review!</h2>
+                    <p>We appreciate your feedback.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openReviewPopup() {
+            document.getElementById('reviewPopup').style.display = 'flex';
+        }
+    
+        function closeReviewPopup() {
+            document.getElementById('reviewPopup').style.display = 'none';
+        }
+    
+        function submitReview() {
+            document.getElementById('reviewForm').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        }
+    </script>
+    
+    <script>
+        function openPopup() {
+            document.getElementById('aboutUsPopup').style.display = 'flex';
+        }
+    
+        function closePopup() {
+            document.getElementById('aboutUsPopup').style.display = 'none';
+        }
+    
+        function openContactPopup() {
+            document.getElementById('contactPopup').style.display = 'flex';
+        }
+    
+        function closeContactPopup() {
+            document.getElementById('contactPopup').style.display = 'none';
+        }
+    </script>
+    
+    <script>
+        function resetForm() {
+            var form = document.querySelector('form');
+            form.reset();
+        }
+    
+        function hideResultSection() {
+            var resultSection = document.getElementById('resultSection');
+            if (resultSection) {
+                resultSection.style.display = 'none';
+            }
+        }
+    
+        window.addEventListener('load', function () {
+            resetForm();
+            hideResultSection();
+        });
+    </script>
+</body>
+</html>
